@@ -54,7 +54,6 @@ O projeto foi implementado em três etapas:
   - `order-service/`
 - `uml-antes.puml`
 - `uml-depois.puml`
-- `Relatorio.pdf`
 - `README.md`
 
 ---
