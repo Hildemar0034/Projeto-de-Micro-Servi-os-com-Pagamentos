@@ -1,0 +1,36 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: order-service
+
+user:
+  service:
+    url: http://localhost:8081
+payment:
+  service:
+    url: http://localhost:8082
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      paymentCB:
+        slidingWindowSize: 10
+        permittedNumberOfCallsInHalfOpenState: 3
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s
+        minimumNumberOfCalls: 5
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        recordExceptions:
+          - java.lang.RuntimeException
+  bulkhead:
+    instances:
+      paymentBH:
+        maxConcurrentCalls: 5
+        maxWaitDuration: 500ms

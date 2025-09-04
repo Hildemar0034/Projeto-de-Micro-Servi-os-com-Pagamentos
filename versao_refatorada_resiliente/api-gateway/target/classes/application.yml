@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+# Simple static routing
+spring.cloud.gateway:
+  routes:
+    - id: user-service
+      uri: http://localhost:8081
+      predicates:
+        - Path=/users/**
+    - id: payment-service
+      uri: http://localhost:8082
+      predicates:
+        - Path=/payments/**
+    - id: order-service
+      uri: http://localhost:8083
+      predicates:
+        - Path=/orders/**
